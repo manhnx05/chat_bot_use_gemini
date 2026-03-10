@@ -1,0 +1,26 @@
+# ============================================================
+#  .GITIGNORE - Danh sách file không push lên Git
+# ============================================================
+
+# ⚠️ File chứa API key và biến môi trường - KHÔNG PUSH LÊN GIT
+.env
+.env.local
+.env.*.local
+
+# config.js cũ (không còn dùng nhưng giữ để đề phòng)
+config.js
+
+# Hệ điều hành
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*
