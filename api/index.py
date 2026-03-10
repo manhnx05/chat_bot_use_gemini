@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, send_from_directory
 import os
 import requests
 from dotenv import load_dotenv
@@ -6,14 +6,17 @@ from dotenv import load_dotenv
 # Load environment variables from .env
 load_dotenv()
 
-app = Flask(__name__, static_folder='../static', static_url_path='/static')
+# Lấy đường dẫn thư mục gốc (chứa api, static, index.html)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+app = Flask(__name__, static_folder=os.path.join(BASE_DIR, 'static'), static_url_path='/static')
 
 GEMINI_API_BASE = 'https://generativelanguage.googleapis.com/v1beta/models'
 
 @app.route('/')
 def index():
     # File HTML render trên thư mục cha
-    return app.send_static_file('../index.html')
+    return send_from_directory(BASE_DIR, 'index.html')
 
 @app.route('/api/chat', methods=['POST'])
 def chat():
