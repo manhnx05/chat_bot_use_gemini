@@ -3,11 +3,6 @@ const localData = [
     { "prompt": "cô là ai", "completion": "Cô là Ngọc Điệp, giáo viên Tiểu học, chuyên dạy môn Toán lớp 4. Cô rất vui được đồng hành cùng các em! 📚✨" },
     { "prompt": "cô giáo là ai", "completion": "Cô giáo của các em là cô Nguyễn Thị Ngọc Điệp, cô dạy môn Toán lớp 4." },
     { "prompt": "giới thiệu", "completion": "Chào các em! Cô là trợ lý học toán lớp 4, được tạo ra để giúp các em học toán vui vẻ và hiệu quả hơn. Cô Nguyễn Thị Ngọc Điệp luôn sẵn sàng hỗ trợ các em!" },
-    { "prompt": "1 tấn bằng bao nhiêu", "completion": "1 tấn = 10 tạ = 1000 kg 📊\n\nVí dụ: Một xe tải chở 2 tấn gạo = 20 tạ = 2000 kg gạo nhé!" },
-    { "prompt": "1 tạ bằng bao nhiêu", "completion": "1 tạ = 100 kg = 10 yến 📊\n\nVí dụ: Một bao gạo nặng 1 tạ = 100 kg = 10 yến" },
-    { "prompt": "1 yến bằng bao nhiêu", "completion": "1 yến = 10 kg ⚖️\n\nVí dụ: 5 yến = 50 kg" },
-    { "prompt": "đổi 5 tấn", "completion": "5 tấn = 50 tạ = 5000 kg 🚛\n\nCách đổi:\n- 5 tấn × 10 = 50 tạ\n- 5 tấn × 1000 = 5000 kg" },
-    { "prompt": "đổi 250 kg", "completion": "250 kg = 2,5 tạ = 25 yến ⚖️\n\nCách đổi:\n- 250 kg ÷ 100 = 2,5 tạ\n- 250 kg ÷ 10 = 25 yến" },
     { "prompt": "cộng trừ khối lượng", "completion": "Khi cộng trừ các đơn vị khối lượng, các em cần:\n\n1️⃣ Đổi về cùng đơn vị\n2️⃣ Thực hiện phép tính\n3️⃣ Viết kết quả\n\nVí dụ: 2 tấn + 5 tạ = ?\n- Đổi: 2 tấn = 20 tạ\n- Tính: 20 tạ + 5 tạ = 25 tạ\n- Hoặc: 25 tạ = 2,5 tấn = 2500 kg" }
 ];
 
@@ -32,11 +27,11 @@ const imageInput = document.getElementById('image-input');
 const suggestionsContainer = document.getElementById('suggestions-container');
 
 // Kiểm tra khi trang load
-window.addEventListener('load', function() {
-const voiceButton = document.querySelector('button[title="Chat bằng giọng nói"]');
-if (!window.SpeechRecognition && !window.webkitSpeechRecognition) {
-    voiceButton.style.display = 'none';
-}
+window.addEventListener('load', function () {
+    const voiceButton = document.querySelector('button[title="Chat bằng giọng nói"]');
+    if (!window.SpeechRecognition && !window.webkitSpeechRecognition) {
+        voiceButton.style.display = 'none';
+    }
 });
 
 function getRandomSuggestions(exclude = []) {
@@ -122,7 +117,7 @@ async function sendMessage() {
         const data = await response.json();
         if (!response.ok) {
             console.error('Lỗi server:', data);
-            
+
             // Nếu lỗi quota, hiển thị thông báo thân thiện
             if (data.error && data.error.toLowerCase().includes('quota')) {
                 appendMessage('gemini', '⚠️ Xin lỗi em, hiện tại cô đang gặp vấn đề với hệ thống AI (đã hết quota miễn phí). Em có thể:\n\n1️⃣ Hỏi các câu hỏi cơ bản về tấn, tạ, yến (cô có sẵn câu trả lời)\n2️⃣ Đợi cô cập nhật API key mới\n3️⃣ Liên hệ cô Ngọc Điệp để được hỗ trợ trực tiếp\n\nCác câu hỏi em có thể hỏi ngay:\n- "1 tấn bằng bao nhiêu?"\n- "Đổi 5 tấn ra kg"\n- "Cộng trừ khối lượng"');
